@@ -1,0 +1,22 @@
+<ng-container *ngIf="cast">
+  <div class="cast-viewer-container">
+    <div class="cast-list-panel">
+      <ul>
+        <li *ngFor="let person of cast" [class.selected]="person.id === selectedPerson.id" (click)="onSelect(person.id)">
+          <p class="cast-name">{{person.name}}</p>
+          <p class="cast-character"> {{person.character}}</p>
+        </li>
+      </ul>
+    </div>
+    <ng-container *ngIf="selectedPerson">
+      <div class="cast-detail">
+        <div class="profile-card" [ngStyle]="{'background-image': getCastPosterUrl()}"></div>
+        <div class="profile-info">
+          <p class="profile-title">{{selectedPerson.name}}</p>
+          <p class="profile-data">Birthday: <span>{{selectedPerson.birthday}}</span></p>
+        </div>
+        <i routerLink="{{selectedPerson.id}}">More INFO</i>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

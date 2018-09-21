@@ -1,0 +1,98 @@
+@import "~src/sass/variables";
+
+%viewer-container{
+  width: 80%;
+  margin: 2em auto;
+  display: grid;
+  grid-template-columns: 30% auto;
+  grid-template-areas: "panel profile";
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+  grid-column-gap: 2em;
+}
+
+%viewer-panel{
+  grid-area: panel;
+  height: 400px;
+  border-right: 5px solid grey;
+  overflow: auto;
+  ul{
+      list-style: none;
+      padding: 0px;
+    li{
+        height: fit-content;
+        padding: 2% 0 2% 10%;
+        font-family: $font-titillium;
+      p{
+        cursor: pointer;
+      }
+      p.cast-name{
+        font-size: 16px;
+        color: #2a2a30;
+        margin: auto;
+      }
+      p.cast-character{
+        margin: 3px 0 3px 0;
+        font-size: 12px;
+        color: #333237;
+      }
+    }
+  }
+}
+
+%viewer-profile{
+  margin-top: 2em;
+  grid-area: profile;
+  height: 400px;
+  display: flex;
+  flex-direction: row;
+}
+%cast-poster{
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 185px;
+  height: 270px;
+  border: 15px solid white;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+%cast-info{
+  margin: 0 1em;
+  border-left: 2px solid lightgray;
+  font-family: $font-titillium;
+  p{
+    margin: 0;
+    letter-spacing: 1px;
+  }
+  .profile-title{https://github.com/Agcrov/tp1-2018.git
+    font-size: 48px;
+    color: #2a2a30;
+  }
+  .profile-data{
+    font-size: 16px;
+    color: #2a2a30;
+    span{
+      color: grey;
+    }
+  }
+}
+.cast-viewer-container{
+  @extend %viewer-container;
+}
+.cast-list-panel{
+  @extend %viewer-panel;
+}
+.selected{
+  border-left: solid 1px darkslategrey;
+  border-width: 6px;
+  background-color: #e5e5ff;
+  transition: border-width 0.3s linear,background-color 0.3s ease;
+  //transition: background-color 0.3s ease;
+}
+.cast-detail{
+  @extend %viewer-profile
+}
+.profile-info{
+  @extend %cast-info;
+}
+.profile-card{
+  @extend %cast-poster;
+}

@@ -1,0 +1,306 @@
+.movie-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: whitesmoke;
+  margin: 4px 0px 0px 0px;
+}
+.movie-year{
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  color: #888888;
+  margin: 2px 0px 0px 0px;
+}
+
+.container{
+  height: 300px;
+  width: 185px;
+}
+
+$font-size: 12px;
+.box{
+  height: 270px;
+  width: 185px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  font-size: ($font-size * 0.8);
+  &:hover{
+    font-size: $font-size;
+    .the-content-box{
+      transform: translateY(0%);
+      background: rgba(black, 0.8);
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      justify-content: center;
+      hr{
+        width: 80%;
+        transition-delay: 900ms;
+      }
+      p{
+        margin: 15px 0px;
+        text-align: center;
+        font-size: 32px;
+        opacity: 1;
+        transition: all 400ms ease;
+        transform: translateY(00%);
+        transition-delay: 600ms;
+      }
+      a{
+        opacity: 1;
+        transform: translateX(0%);
+        transition-delay: 900ms;
+      }
+    }
+  }
+}
+.box-inner{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.the-content-box{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: rgba(#4A89CD, 0.6);
+  color: white;
+  transform: translateY(150%);
+  transition: all 600ms ease;
+  h1{
+    padding: 0.2em 0em 0em 0em;
+    margin: 0;
+    font-family: helvetica;
+  }
+  hr{
+    background: #4A89CD;
+    height: 3px;
+    border: none;
+    margin: 1em 0em 0em 0em;
+    width: 0;
+    transition: all 400ms ease;
+  }
+  p{
+    letter-spacing: 1px;
+    opacity: 0;
+    font-family: arial !important;
+    transition: all 900ms ease;
+    transform: translateY(40%);
+    font-weight: lighter;
+  }
+  a{
+    display: inline-block;
+    background: #4A89CD;
+    font-family: helvetica;
+    padding: 0.5em 1em;
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+    position: relative;
+    transition: all 600ms ease;
+    opacity: 0;
+    transform: translateX(20%);
+    &:hover{
+      background: #1B324B;
+    }
+  }
+}
+.content-box-inner{
+  padding: 0em 1em;
+}
+
+//popcorn styles
+$red: #DB5461;
+$corn: #FDE1AF;
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800');
+
+@mixin size ($w: 50%, $h: 25%){
+  width: $w;
+  height: $h;
+}
+.corn-container, .corn, .corn-box, .logo {
+  position: absolute;
+}
+.corn-container {
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 30vmin;
+  height: 30vmin;
+}
+.corn-box {
+  @include size(25vmin, 50vmin);
+  border-radius: 0 0 4vmin 5vmin;
+  border-top: 50vmin solid $red;
+  border-left: 3vmin solid transparent;
+  border-right: 3vmin solid transparent;
+  // background: repeating-linear-gradient(
+  //   90deg,
+  //   #DB5461 6vmin,
+  //   #FFF 6vmin,
+  //   #FFF 8vmin,
+  //   #DB5461 8vmin,
+  //   #DB5461 10vmin);
+  //   box-shadow: 3px 5px 0 rgba(#000,0.2);
+
+  &:before {
+    position: absolute;
+    content: '';
+    @include size(1vmin, 50vmin);
+    background: white;
+    top: -50vmin;
+    box-shadow: 24vmin 0 0 white, 20vmin 0 0 white, 16vmin 0 0 white, 12vmin 0 0 white, 8vmin 0 0 white, 4vmin 0 0 white;
+  }
+}
+.corn {
+  position: relative;
+  top: -4vmin;
+
+  div{
+    position: absolute;
+    @include size(5vmin, 5vmin);
+    border-radius: 100%;
+    background: #FDE1AF;
+  }
+
+  div:nth-child(2) {
+    left: 1vmin;
+    top: -1vmin;
+    box-shadow:
+      1vmin 3vmin 0 $corn,
+      20vmin 2vmin 0 $corn,
+      24vmin 2vmin 0 $corn,
+      5vmin 2vmin 0 $corn,
+      -1vmin 3vmin 0 $corn;
+  }
+  div:nth-child(3){
+    left: 5vmin;
+    top: -1vmin;
+  }
+
+  div:nth-child(4){
+    left: 7vmin;
+    top: 0;
+  }
+
+  div:nth-child(5){
+    left: 10vmin;
+    top: 2vmin;
+  }
+
+  div:nth-child(6){
+    left: 12vmin;
+    top: 1vmin;
+  }
+
+  div:nth-child(7){
+    left: 15vmin;
+    top: -1vmin;
+  }
+
+  div:nth-child(8) {
+    left: 17vmin;
+    top: 1vmin;
+  }
+
+  div:nth-child(9){
+    left: 19vmin;
+    top: 1vmin;
+
+  }
+
+  div:nth-child(10){
+    @include size(2vmin, 2vmin);
+    left: 35vmin;
+    top: 55vmin;
+    box-shadow:
+      -10vmin 5vmin 0 $corn,
+      -2vmin -10vmin 0 $corn,
+      5vmin -5vmin 0 $corn;
+  }
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include size(25vmin, 20vmin);
+  border-radius: 100%;
+  background: white;
+  transform: rotate(-15deg);
+  top: 15vmin;
+  left: 2.5vmin;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  color: $red;
+  font-size: 4.5vmin;
+}
+
+//rankmeter-styles
+
+/** function circular-progress
+ **------------------------------------------*/
+@function circular-progress($maxPercent, $percent, $color-bar, $color-back) {
+
+  $increment: 360 / $maxPercent;
+  $half: round($maxPercent / 2);
+  $background-image: '';
+
+  @if $percent < $half {
+    $nextdeg: 90deg +  ($increment * $percent);
+
+    $background-image: 'linear-gradient(90deg, #{$color-back} 50%, transparent 50%, transparent),
+    linear-gradient(#{$nextdeg}, #{$color-bar} 50%, #{$color-back} 50%, #{$color-back})';
+
+  } @else {
+    $nextdeg: -90deg + ($increment * ($percent - $half));
+
+    $background-image: 'linear-gradient(#{$nextdeg}, #{$color-bar} 50%, transparent 50%, transparent),
+      linear-gradient(270deg, #{$color-bar} 50%, #{$color-back} 50%, #{$color-back})';
+  }
+  @return unquote($background-image);
+}
+
+
+
+
+/** circular-progress styles
+ **------------------------------------------*/
+$percent-to-show: 33;// value to show in the circular progress CHANGE ME
+
+.circular-progress {
+  //circular-progress function
+  //circular-progress($maxPercent, $percent, $color-bar, $color-back);
+  background: circular-progress(100, $percent-to-show, #03A9F4, #E0E0E0);
+
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 200px;
+  margin: 2em auto;
+  position: relative;
+  width: 200px;
+  transition: all .3s linear;
+
+  &::before {
+    background-color: #FAFAFA;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: rgba(black,.54);
+    content: '#{$percent-to-show}%';
+    font-size: 72px;
+    font-weight: bold;
+    height: 100%;
+    left: 0;
+    line-height: 200px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transform: scale(.87);
+    width: 100%;
+  }
+}
+
+

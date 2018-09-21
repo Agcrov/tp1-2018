@@ -1,0 +1,18 @@
+.container{
+  width: 100%;
+  background: #333237;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.container:after {
+  display: block;
+  //content: " invisible node ";
+  flex: 999 999 auto;
+}
+app-movie-wildcard{
+  margin: 15px;
+}

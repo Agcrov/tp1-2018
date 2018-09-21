@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web&subset=latin-ext');
+
+%accordion-title{
+  text-decoration: none;
+  font-weight: normal;
+  font-family: 'Titillium Web', sans-serif;
+  color: #2a2a30;
+  margin: auto 0px auto 2em;
+}
+%content-container{
+  width: 100%;
+  background-color: #333237;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  padding: 2em 0em 2em 0em;
+}
+%button {
+  background-image: url('assets/down-arrow.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 1em;
+  margin: auto 0px auto 2em;
+}
+
+.accordion-item{
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+
+  .accordion-bar{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 0.5px solid  #a0a0b6 ;
+
+    .accordion-title{
+      @extend %accordion-title;
+    }
+
+    .accordion-button{
+      @extend %button;
+    }
+  }
+  .accordion-content{
+    @extend %content-container;
+  }
+}
+
+
+
+
+
+
+
+/* The best way */
+
+%twitter-background {
+  color: #fff;
+  background: #55acee;
+}
+%facebook-background {
+  color: #fff;
+  background: #3b5998;
+}
+
+.btn {
+  &--twitter {
+    @extend %button;
+    @extend %twitter-background;
+  }
+  &--facebook {
+    @extend %button;
+    @extend %facebook-background;
+  }
+}

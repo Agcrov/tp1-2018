@@ -1,0 +1,9 @@
+<div class="accordion-item">
+  <div class="accordion-bar" (click)="toggle()">
+    <span class="accordion-button"  [@openCloseIcon]="isOpen ? 'open' : 'closed'"></span>
+    <h3 class="accordion-title">{{title}}</h3>
+  </div>
+  <div [@openClose]="isOpen ? 'open' : 'closed'" class="accordion-content">
+    <ng-content></ng-content>
+  </div>
+</div>

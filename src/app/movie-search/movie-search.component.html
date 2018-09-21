@@ -1,0 +1,26 @@
+<!--<div id="search-component">-->
+  <!--<h4>Hero Search</h4>-->
+
+  <!--<input #searchBox id="search-box" (keyup)="search(searchBox.value)" />-->
+
+  <!--<ul class="search-result">-->
+    <!--<li *ngFor="let movie of movies$ | async" >-->
+      <!--<a href="">{{movie.original_title}}</a>-->
+      <!--&lt;!&ndash;<a routerLink="/detail/{{hero.id}}">&ndash;&gt;-->
+        <!--&lt;!&ndash;{{hero.name}}&ndash;&gt;-->
+      <!--&lt;!&ndash;</a>&ndash;&gt;-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
+
+<div id="search-component">
+  <h4>Hero Search</h4>
+
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let movie of movies$ | async" >
+      {{movie.original_title}}
+    </li>
+  </ul>
+</div>

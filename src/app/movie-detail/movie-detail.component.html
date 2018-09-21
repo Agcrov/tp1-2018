@@ -1,0 +1,22 @@
+<ng-container *ngIf="movie">
+  <div class="header" [ngStyle]="{'background-image': getBackdropUrl()}">
+  </div>
+  <div class="content">
+    <div class="poster-card" [ngStyle]="{'background-image': getPosterUrl()}"></div>
+    <div class="movie-data">
+      <h1 class="movie-title">{{movie.original_title}}</h1>
+      <p>{{movie.release_date}}</p>
+    </div>
+  </div>
+  <app-accordion [title]="movie.original_title">
+    <app-movie-wildcard [movie]="movie"></app-movie-wildcard>
+  </app-accordion>
+  <app-cast-viewer *ngIf="cast" [cast]="cast"></app-cast-viewer>
+</ng-container>
+
+
+
+
+<!--<div *ngIf="movie">-->
+  <!--<app-accordion [content]="creditsAccordionContent" [title]="movie.original_title"></app-accordion>-->
+<!--</div>-->
