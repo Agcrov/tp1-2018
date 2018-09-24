@@ -1,4 +1,9 @@
 @import "~src/sass/variables";
+@import "~src/sass/mixins";
+
+:host{
+  width: 100%;
+}
 
 %viewer-container{
   width: 80%;
@@ -8,6 +13,7 @@
   grid-template-areas: "panel profile";
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
   grid-column-gap: 2em;
+  background-color: white;
 }
 
 %viewer-panel{
@@ -43,30 +49,43 @@
   margin-top: 2em;
   grid-area: profile;
   height: 400px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 220px auto;
+  grid-template-areas: "card profile-data";
+  grid-column-gap: 1em;
 }
 %cast-poster{
   background-size: cover;
   background-repeat: no-repeat;
-  width: 185px;
+  grid-area: card;
+  // width: 185px;
   height: 270px;
   border: 15px solid white;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
 }
 %cast-info{
-  margin: 0 1em;
-  border-left: 2px solid lightgray;
+  grid-area: profile-data;
   font-family: $font-titillium;
+  .data-container{
+    height: 300px;
+    overflow: hidden;
+    margin-right: 2em;
+    p{
+      text-overflow: ellipsis;
+    }
+  }
   p{
+    // TODO: manage overflow
+    // white-space: nowrap;
     margin: 0;
     letter-spacing: 1px;
   }
-  .profile-title{https://github.com/Agcrov/tp1-2018.git
+  .profile-title{
     font-size: 48px;
     color: #2a2a30;
   }
   .profile-data{
+    text-overflow: ellipsis;
     font-size: 16px;
     color: #2a2a30;
     span{
@@ -74,6 +93,7 @@
     }
   }
 }
+
 .cast-viewer-container{
   @extend %viewer-container;
 }
@@ -95,4 +115,11 @@
 }
 .profile-card{
   @extend %cast-poster;
+}
+.btn-info { 
+  @include borderbutton($color:rgb(100, 163, 247), $border: 1px); 
+  float: right;
+  text-align:center;
+  margin-right: 2em;
+  margin-top: 2em;
 }

@@ -13,9 +13,11 @@ import {
   animations: [
     trigger('openClose', [
       state('open', style({
+        display: 'flex',
         visibility: 'visible'
       })),
       state('closed', style({
+        display: 'none',
         visibility: 'collapse'
       })),
       transition('open => closed', [

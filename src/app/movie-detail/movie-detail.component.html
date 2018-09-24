@@ -11,7 +11,10 @@
   <app-accordion [title]="movie.original_title">
     <app-movie-wildcard [movie]="movie"></app-movie-wildcard>
   </app-accordion>
-  <app-cast-viewer *ngIf="cast" [cast]="cast"></app-cast-viewer>
+
+  <app-accordion [title]="'Cast & Crew'">
+    <app-cast-viewer *ngIf="cast" [cast]="cast"></app-cast-viewer>
+  </app-accordion>
 </ng-container>
 
 

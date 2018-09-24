@@ -4,7 +4,22 @@
 $font-titillium: 'Titillium Web', sans-serif;
 $font-opensans: 'Open Sans', sans-serif;
 
+// ICONS
+$fa-font-path: "~src/sass/vendor/fontawesome-free-5.3.1-web/webfonts";
 
+@import url("http://weloveiconfonts.com/api/?family=entypo");
+
+$icons: (
+        save: \1F4BE,
+        delete: \12as,
+        fb: \F30E,
+        twitter: \F309,
+        bolt: \26A1,
+        danger: \26A0,
+        info: entypo-info, 
+        info-circled: entypo-info-circled, 
+        tick: \2713
+);
 
 
 

@@ -1,4 +1,4 @@
-<ng-container *ngIf="cast">
+<ng-container *ngIf="cast && selectedPerson">
   <div class="cast-viewer-container">
     <div class="cast-list-panel">
       <ul>
@@ -12,10 +12,19 @@
       <div class="cast-detail">
         <div class="profile-card" [ngStyle]="{'background-image': getCastPosterUrl()}"></div>
         <div class="profile-info">
-          <p class="profile-title">{{selectedPerson.name}}</p>
-          <p class="profile-data">Birthday: <span>{{selectedPerson.birthday}}</span></p>
+          <div class="data-container">
+              <p class="profile-title">{{selectedPerson.name}}</p>
+              <p class="profile-data" *ngIf="selectedPerson.birthday">Age: <span>{{getAgeAtFilmRelease()}}</span></p>
+              <p class="profile-data" *ngIf="selectedPerson.place_of_birth">Nationality: <span>{{selectedPerson.place_of_birth.split(',').pop()}}</span></p>
+              <p class="profile-data" *ngIf="selectedPerson.deathday">Deathday: <span  *ngIf="selectedPerson.deathday">{{selectedPerson.deathday}}</span></p>
+              <p class="profile-data" *ngIf="selectedPerson.popularity">Popularity: <span>{{selectedPerson.popularity}}</span></p>
+              <p class="profile-data">{{selectedPerson.biography}}</p>
+          </div>
+          <div class="btn-info">
+            <fa-icon [icon]="faInfoCircle"></fa-icon>
+            more info
+          </div>
         </div>
-        <i routerLink="{{selectedPerson.id}}">More INFO</i>
       </div>
     </ng-container>
   </div>
