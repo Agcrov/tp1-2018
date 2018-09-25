@@ -5,7 +5,12 @@
     <div class="poster-card" [ngStyle]="{'background-image': getPosterUrl()}"></div>
     <div class="movie-data">
       <h1 class="movie-title">{{movie.original_title}}</h1>
-      <p>{{movie.release_date}}</p>
+      <div class="movie-details">
+        <p>Rank: <span>{{movie.popularity}}</span></p>
+        <p>Length: <span>{{getMovieLenght()}}</span></p>
+        <p>{{movie.release_date}}</p>
+        <!--<p>Director: <span>{{director.name}}</span></p>-->
+      </div>
     </div>
   </div>
   <div class="movie-desc">

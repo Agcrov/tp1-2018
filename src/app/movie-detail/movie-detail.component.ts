@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {Movie} from '../movie';
 import {Image, MoviesService} from '../movies.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {Crew} from '../crew';
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss']
 })
-export class MovieDetailComponent implements OnInit {
+export class MovieDetailComponent implements OnInit, AfterContentInit {
   movie: Movie;
   cast: Cast[];
   crew: Crew[];
@@ -18,6 +18,7 @@ export class MovieDetailComponent implements OnInit {
   movieSimilar: Movie[];
   movieBackdrops: Image[];
   moviePosters: Image[];
+  movieLenght: string;
 
 
 
@@ -25,17 +26,37 @@ export class MovieDetailComponent implements OnInit {
     private moviesService: MoviesService,
     private _activeRoute: ActivatedRoute,
     private _router: Router
-  ) { }
-
-  ngOnInit() {
+  ) {
+    console.log('on constructor');
     const id = Number(this._activeRoute.snapshot.params['id']);
     this.getMovie(id);
     this.getMovieCredits(id);
     this.getMovieSimilar(id);
     this.getMovieImages(id);
-    if (this.crew) {
-      this.director = this.crew.filter(person => person.job === 'director').pop() as Crew;
-    }
+  }
+
+  ngOnInit() {
+    console.log('on init');
+    this.director = this.crew.filter(person => person.job ==='Director').pop();
+
+    // if (this.crew) {
+    //   this.director = this.crew.filter(person => person.job ==='Director').pop();
+    //   console.log(this.director.name);
+    // }
+    // const id = Number(this._activeRoute.snapshot.params['id']);
+    // this.getMovie(id);
+    // this.getMovieCredits(id);
+    // this.getMovieSimilar(id);
+    // this.getMovieImages(id);
+  }
+  ngAfterContentInit() {
+    console.log('after content init');
+    // console.log(this.crew.length);
+    // if (this.crew) {
+    //   this.director = this.crew.filter(person => person.job ==='Director').pop();
+    //   console.log(this.director.name);
+    // }
+    // console.log(this.director.name);
   }
 
   // onBack(): void {
@@ -72,6 +93,12 @@ export class MovieDetailComponent implements OnInit {
   }
   getImageUrl(img: Image): string {
     return 'url(\'https://image.tmdb.org/t/p/original' + img.file_path + '\')';
+  }
+  getMovieLenght(): string {
+    // console.log(Math.trunc(this.movie.runtime / 60).toString() + 'h ' + (this.movie.runtime % 60).toString() + 'min');
+    const hours = Math.trunc(this.movie.runtime / 60);
+    const minutes = (this.movie.runtime % 60);
+    return  hours.toString() + 'h ' + minutes.toString() + 'min';
   }
 }
 
