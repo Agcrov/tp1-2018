@@ -6,6 +6,15 @@ import {Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
 import {Movie} from './movie';
 
+export interface Image {
+  aspect_ratio: number;
+  file_path: string;
+  height: number;
+  iso_639_1: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +33,8 @@ export class MoviesService {
 
   // "http://localhost:4200/?api_key=77012f724db16b13bbfe1737d9ae3903movie/550https://api.themoviedb.org/3/&language=es-AR"
   getMovie(movieId: number): Observable<Movie> {
-    const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}${this.apiLan}`;
+    // const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}${this.apiLan}`;
+    const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}`;
     return this.http.get<Movie>(url).pipe(
       tap(_ => this.log(`fetched movie id=${movieId}`)),
       catchError(this.handleError<Movie>(`getMovie id=${movieId}`))
@@ -32,7 +42,8 @@ export class MoviesService {
   }
   /** GET movie by id. Return `undefined` when id not found */
   getMovieNo404<Data>(movieId: number): Observable<Movie> {
-    const url = `${this.apiUrl}movie/${movieId}${this.apiKey}${this.apiLan}`;
+    const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}`;
+    // const url = `${this.apiUrl}movie/${movieId}${this.apiKey}${this.apiLan}`;
     return this.http.get<Movie[]>(url)
       .pipe(
         map(movies => movies[0]), // returns a {0|1} element array
@@ -51,11 +62,32 @@ export class MoviesService {
       tap(_ => this.log(`fetched movie credits for id=${movieId}`)),
       catchError(this.handleError<any>(`getMovieCredits id=${movieId}`))
     );
+  }
+  getMovieSimilar(movieId: number): Observable<Movie[]> {
+    const url = `${this.apiUrl}/movie/${movieId}/similar${this.apiKey}&page=1`;
+    return this.http.get<Movie[]>(url).pipe(
+      tap(_ => this.log(`fetched similar movie for id=${movieId}`)),
+      catchError(this.handleError<any>(`getMovieSimilar id=${movieId}`))
+    );
+  }
+  getMovieRecomendations(movieId: number): Observable<Movie[]> {
+    const url = `${this.apiUrl}/movie/${movieId}/recommendations${this.apiKey}&page=1`;
+    return this.http.get<Movie[]>(url).pipe(
+      tap(_ => this.log(`fetched similar movie for id=${movieId}`)),
+      catchError(this.handleError<any>(`getMovieSimilar id=${movieId}`))
+    );
+  }
 
+  getMovieImages(movieId: number): Observable<any> {
+    const url = `${this.apiUrl}/movie/${movieId}/images${this.apiKey}`;
+    return this.http.get<any>(url).pipe(
+      tap(_ => this.log(`fetched movie images for id=${movieId}`)),
+      catchError(this.handleError<any>(`getMovieImages id=${movieId}`))
+    );
   }
   // https://api.themoviedb.org/3/movie/now_playing?api_key=<<api_key>>&language=en-US&page=1
   getNowPlayingMovies(): Observable<Movie[]> {
-    const url = `${this.apiUrl}/movie/now_playing${this.apiKey}${this.apiLan}&page=1`;
+    const url = `${this.apiUrl}/movie/now_playing${this.apiKey}&page=1`;
     return this.http.get<Movie[]>(url).pipe(
       tap(_ => this.log(`fetched now playing movies`)),
       catchError(this.handleError<Movie[]>(`getNowPlayingMovie error`))
@@ -71,7 +103,7 @@ export class MoviesService {
     }
     query = encodeURI(query);
     return this.http
-      .get<Movie[]>(`${this.apiUrl}/search/movie${this.apiKey}${this.apiLan}&query=${query}&page=1&include_adult=false`)
+      .get<Movie[]>(`${this.apiUrl}/search/movie${this.apiKey}&query=${query}&page=1&include_adult=false`)
       .pipe(
         tap(_ => this.log(`movie matching "${query}"`)),
         catchError(this.handleError<Movie[]>('searchMovie', []))

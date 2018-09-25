@@ -8,15 +8,29 @@
       <p>{{movie.release_date}}</p>
     </div>
   </div>
-  <app-accordion [title]="movie.original_title">
-    <app-movie-wildcard [movie]="movie"></app-movie-wildcard>
+  <div class="movie-desc">
+    <h2>Synopsys</h2>
+    <p *ngIf="movie.overview">{{movie.overview}}</p>
+    <circle-progress
+      [percent]="(movie.vote_average * 10)"
+    ></circle-progress>
+    {{movie.vote_average}}
+    {{movie.vote_count}}
+    <!--<div class="test"-->
+      <!--*ngFor="let img of movieBackdrops"-->
+      <!--[ngStyle]="{'background-image': getImageUrl(img)}">-->
+    <!--</div>-->
+    <!--{{moviePosters.toString()}}-->
+    <!--<div *ngIf="director">{{director.name}}</div>-->
+  </div>
+  <app-accordion [title]="'Cast & Crew'">
+    <app-cast-viewer *ngIf="cast" [cast]="cast" [movie]="movie"></app-cast-viewer>
   </app-accordion>
-  <app-cast-viewer *ngIf="cast" [cast]="cast"></app-cast-viewer>
+  <!--<ng-container *ngIf="movieSimilar">-->
+    <app-accordion [title]="'Similar'">
+      <div class="wildcards-wrapper">
+        <app-movie-wildcard *ngFor="let similar of movieSimilar" [movie]="similar"></app-movie-wildcard>
+      </div>
+    </app-accordion>
+  <!--</ng-container>-->
 </ng-container>
-
-
-
-
-<!--<div *ngIf="movie">-->
-  <!--<app-accordion [content]="creditsAccordionContent" [title]="movie.original_title"></app-accordion>-->
-<!--</div>-->

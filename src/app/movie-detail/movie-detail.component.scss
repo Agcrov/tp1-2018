@@ -1,3 +1,4 @@
+@import "~src/sass/variables";
 .poster-card{
   height: 350px;
   width: 250px;
@@ -39,7 +40,6 @@
   align-items: flex-start;
   background-color: rgba(42,42,48,0.25);
 }
-
 .movie-data{
   width: 40%;
   display: flex;
@@ -54,7 +54,6 @@
     margin: 25px 0px 10px 0px;
   }
 }
-
 .cast-cards{
   width: 20%;
   height: 450px;
@@ -72,5 +71,45 @@
   border-radius: 50%;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
 }
+.movie-desc{
+  width: 80%;
+  margin: 2em auto;
+  h2{
+    font-size: 3em;
+    font-family: $font-titillium;
+    color: text-color(primary);
+  }
+  p{
+    font-family: $font-titillium;
+    color: text-color(lighter);
+  }
+}
+%flex-row-wraper{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: fit-content;
+  align-content: center;
+  justify-content: center;
+}
+.wildcards-wrapper{
+  @extend %flex-row-wraper;
+  app-movie-wildcard{
+    margin: 1em;
+    .movie-title{
+      color: text-color(primary) !important;
+    }
+    .movie-year{
+      color: lighten(text-color(primary),5%) !important;
+    }
+  }
+  background-color: whitesmoke;
+}
 
 
+
+.test{
+  background-repeat: no-repeat;
+  background-size: auto;
+}

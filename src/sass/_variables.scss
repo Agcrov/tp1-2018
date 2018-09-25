@@ -3,8 +3,14 @@
 
 $font-titillium: 'Titillium Web', sans-serif;
 $font-opensans: 'Open Sans', sans-serif;
+$text-colors: (
+  primary: #303030,
+  lighter: #7a7783,
+  accent: whitesmoke
+);
 
-
-
-
-
+@function text-color($color-name){
+  @return map-get($text-colors,$color-name);
+}
+// ICONS
+$fa-font-path: "~src/sass/vendor/fontawesome-free-5.3.1-web/webfonts";

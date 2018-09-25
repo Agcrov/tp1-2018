@@ -1,52 +1,16 @@
-<div class="container">
-  <div class="box"  *ngIf="movie" [ngStyle]="{'background-image': getUrl()}"  >
-    <div class="box-inner">
-      <div class="the-content-box">
-        <div class="content-box-inner">
-
-          <!--<div style="width: 100px; height: 150px">-->
-            <!--<div class="corn-container">-->
-
-              <!--<div class="corn">-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-                <!--<div></div>-->
-              <!--</div>-->
-              <!--<div class="corn-box"></div>-->
-              <!--<div class="logo">{{movie.vote_average.toString()}}/10</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<h1>{{movie.original_title}}</h1>-->
-          <!--<hr>-->
-
-
-          <!--<div class="circular-progress" [ngStyle]="{'background': getCircularProgres()}"></div>-->
-
-          <p>{{movie.vote_average.toString()}}/10</p>
-          <a [routerLink]="['/movie', movie.id, movie.original_title]"><span>View Info</span></a>
-        </div>
+<div class="box"  *ngIf="movie" [ngStyle]="{'background-image': getUrl()}"  >
+  <div class="box-inner">
+    <div class="the-content-box">
+      <div class="content-box-inner">
+        <circle-progress
+          [percent]="(movie.vote_average * 10)"
+          [subtitle]="'Votes'"
+          [animation]="false"
+        ></circle-progress>
+        <a [routerLink]="['/movie', movie.id, movie.original_title]"><span>View Info</span></a>
       </div>
     </div>
   </div>
-  <p class="movie-title">{{movie.original_title}}</p>
-  <p class="movie-year"> {{movie.release_date | date: 'yyyy'}}</p>
 </div>
-
-
-
-
-
-
-
-
-
-
-
+<p class="movie-title">{{movie.original_title}}</p>
+<p class="movie-year"> {{movie.release_date | date: 'yyyy'}}</p>
