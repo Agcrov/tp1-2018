@@ -1,8 +1,15 @@
-@import "~src/sass/variables";
-@import "~src/sass/mixins";
+@import '~src/sass/variables';
+@import '~src/sass/mixins';
 
 html, body{
   margin: 0;
   padding: 0;
   background-color: whitesmoke;
+}
+
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} } /* needed for checkbox hack */
+body {
+  -webkit-animation: bugfix infinite 1s; /* needed for checkbox hack */
+  -o-animation: bugfix infinite 1s;
+  animation: bugfix infinite 1s;
 }

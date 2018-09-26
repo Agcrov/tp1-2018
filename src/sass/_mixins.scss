@@ -3,7 +3,7 @@
 //########################################
 //TODO: start using responsives mixins!!, import to components to use.
 
-$break-small: 320px;
+$break-small: 414px;
 $break-large: 1024px;
 
 @mixin respond-to($media) {
@@ -57,25 +57,21 @@ $break-large: 1024px;
 %well {
   box-shadow: inset 1px 1px 1px rgba(0,0,0,0.5), inset -1px -1px 1px rgba(100,100,100,0.1);
 }
-
 %bump {
   box-shadow: 1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(100,100,100,0.3);
 }
-
 %outset {
   border-top: 1px solid rgba(250,250,250,0.05);
   border-left: 1px solid rgba(250,250,250,0.05);
   border-bottom: 1px solid rgba(0,0,0,0.2);
   border-right: 1px solid rgba(0,0,0,0.2);
 }
-
 %inset {
   border-bottom: 1px solid rgba(250,250,250,0.05);
   border-right: 1px solid rgba(250,250,250,0.05);
   border-top: 1px solid rgba(0,0,0,0.2);
   border-left: 1px solid rgba(0,0,0,0.2);
 }
-
 %gplay_pseudo {
     content: "";
     display:block;
@@ -146,11 +142,12 @@ $break-large: 1024px;
   }
 }
 
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+
+//* {
+//  //-webkit-box-sizing: border-box;
+//  //-moz-box-sizing: border-box;
+//  box-sizing: border-box;
+//}
 
 //  Usage of mixin
 
@@ -186,3 +183,5 @@ $break-large: 1024px;
 // .catch { @include button(#f18d05); }
 // .fire { @include button(#e54028); }
 // .go { @include button(#87318c);}
+
+

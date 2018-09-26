@@ -18,6 +18,7 @@ import { CastViewerComponent } from './movie-detail/cast-viewer/cast-viewer.comp
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tabs/tab/tab.component';
 import {NgCircleProgressModule} from 'ng-circle-progress';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {NgCircleProgressModule} from 'ng-circle-progress';
     AccordionComponent,
     CastViewerComponent,
     TabsComponent,
-    TabComponent
+    TabComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,

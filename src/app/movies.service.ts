@@ -31,7 +31,6 @@ export class MoviesService {
     private messageService: MessageService
   ) {}
 
-  // "http://localhost:4200/?api_key=77012f724db16b13bbfe1737d9ae3903movie/550https://api.themoviedb.org/3/&language=es-AR"
   getMovie(movieId: number): Observable<Movie> {
     // const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}${this.apiLan}`;
     const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}`;
@@ -40,7 +39,6 @@ export class MoviesService {
       catchError(this.handleError<Movie>(`getMovie id=${movieId}`))
     );
   }
-  /** GET movie by id. Return `undefined` when id not found */
   getMovieNo404<Data>(movieId: number): Observable<Movie> {
     const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}`;
     // const url = `${this.apiUrl}movie/${movieId}${this.apiKey}${this.apiLan}`;
@@ -54,8 +52,6 @@ export class MoviesService {
         catchError(this.handleError<Movie>(`getMovie id=${movieId}`))
       );
   }
-
-  // https://api.themoviedb.org/3/movie/550/credits?api_key=<<api_key>>
   getMovieCredits(movieId: number): Observable<any> {
     const url = `${this.apiUrl}/movie/${movieId}/credits${this.apiKey}`;
     return this.http.get<any>(url).pipe(
@@ -77,7 +73,6 @@ export class MoviesService {
       catchError(this.handleError<any>(`getMovieSimilar id=${movieId}`))
     );
   }
-
   getMovieImages(movieId: number): Observable<any> {
     const url = `${this.apiUrl}/movie/${movieId}/images${this.apiKey}`;
     return this.http.get<any>(url).pipe(
@@ -85,7 +80,6 @@ export class MoviesService {
       catchError(this.handleError<any>(`getMovieImages id=${movieId}`))
     );
   }
-  // https://api.themoviedb.org/3/movie/now_playing?api_key=<<api_key>>&language=en-US&page=1
   getNowPlayingMovies(): Observable<Movie[]> {
     const url = `${this.apiUrl}/movie/now_playing${this.apiKey}&page=1`;
     return this.http.get<Movie[]>(url).pipe(
@@ -93,9 +87,6 @@ export class MoviesService {
       catchError(this.handleError<Movie[]>(`getNowPlayingMovie error`))
     );
   }
-
-
-  // /search/movie?api_key=XXX&language=en-US&query=pink%20floyd&page=1&include_adult=false
   searchMovie(query: string): Observable<Movie[]> {
     if (!query.trim()) {
       // if not search term, return empty hero array.
@@ -109,9 +100,6 @@ export class MoviesService {
         catchError(this.handleError<Movie[]>('searchMovie', []))
       );
   }
-
-
-
 
   /**
    * Handle Http operation that failed.
@@ -132,7 +120,6 @@ export class MoviesService {
       return of(result as T);
     };
   }
-
   private log(message: string) {
     this.messageService.add(`MoviesService: ${message}`);
   }
