@@ -28,12 +28,15 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit() {
-    const id = Number(this._activeRoute.snapshot.params['id']);
+    this._activeRoute.params.subscribe(params => {
+      const id = params['id'];
+      this.getMovie(id);
+      this.getMovieCredits(id);
+      this.getMovieSimilar(id);
+      this.getMovieImages(id);
+    });
     console.log('on init');
-    this.getMovie(id);
-    this.getMovieCredits(id);
-    this.getMovieSimilar(id);
-    this.getMovieImages(id);
+
   }
   ngAfterContentInit() {
     console.log('after content init');
