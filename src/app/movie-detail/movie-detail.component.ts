@@ -4,6 +4,10 @@ import {Image, MoviesService} from '../movies.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Cast} from '../cast';
 import {Crew} from '../crew';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+
+
 
 @Component({
   selector: 'app-movie-detail',
@@ -18,8 +22,10 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
   movieSimilar: Movie[];
   movieBackdrops: Image[];
   moviePosters: Image[];
-
-
+  movieLenght: string;
+  rateValue: number;
+  faStar = faStar;
+  faMinusCircle = faMinusCircle;
 
   constructor(
     private moviesService: MoviesService,
@@ -83,6 +89,19 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
     const hours = Math.trunc(this.movie.runtime / 60);
     const minutes = (this.movie.runtime % 60);
     return  hours.toString() + ' h ' + minutes.toString() + ' min';
+  }
+  vote(vote: number):void{
+    this.rateValue = vote;
+    this.moviesService.voteMovie(this.movie.id.toString(),this.rateValue).subscribe(
+      res => console.log(res)
+    );
+  }
+  deleteRating(): void{
+    this.moviesService.unvoteMovie(this.movie.id.toString()).subscribe(
+      res => console.log(res)
+    );
+    this.rateValue = 0;
+
   }
 }
 

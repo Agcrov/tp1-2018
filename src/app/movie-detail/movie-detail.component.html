@@ -9,7 +9,38 @@
         <p>Rank: <span>{{movie.popularity}}</span></p>
         <p>Length: <span>{{getMovieLenght()}}</span></p>
         <p>{{movie.release_date}}</p>
+
         <p *ngIf="crew">Director: <span>{{director.name}}</span></p>
+
+        <fa-icon
+          [satPopoverAnchorFor]="ratePopover"
+          class="fa-2x btn-star"
+          [icon]="faStar"
+          (click)="ratePopover.toggle()">
+        </fa-icon>
+        <sat-popover
+          #ratePopover
+          hasBackdrop
+          horizontalAlign="after"
+          scrollStrategy="block"
+          openTransition="400ms ease-out"
+          closeTransition="100ms ease-in">
+          <div class="rating-wrapper">
+            <fa-icon class="fa-2x delete" (click)="deleteRating()" [icon]="faMinusCircle" *ngIf="rateValue"></fa-icon>
+            <fieldset class="rating">
+              <input [(ngModel)]="rateValue" #rateValue1  type="radio" id="star5" name="rating" value="5" /><label       (click)="vote(rateValue1.value)"  class = "full" for="star5" title="Awesome - 5 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue2 type="radio" id="star4half" name="rating" value="4.5" /><label (click)="vote(rateValue2.value)"  class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue3 type="radio" id="star4" name="rating" value="4" /><label       (click)="vote(rateValue3.value)"  class = "full" for="star4" title="Pretty good - 4 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue4 type="radio" id="star3half" name="rating" value="3.5" /><label (click)="vote(rateValue4.value)"  class="half" for="star3half" title="Meh - 3.5 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue5 type="radio" id="star3" name="rating" value="3" /><label       (click)="vote(rateValue5.value)"  class = "full" for="star3" title="Meh - 3 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue6 type="radio" id="star2half" name="rating" value="2.5" /><label (click)="vote(rateValue6.value)"  class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue7 type="radio" id="star2" name="rating" value="2" /><label       (click)="vote(rateValue7.value)"  class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue8 type="radio" id="star1half" name="rating" value="1.5" /><label (click)="vote(rateValue8.value)"  class="half" for="star1half" title="Meh - 1.5 stars"></label>
+              <input [(ngModel)]="rateValue" #rateValue9 type="radio" id="star1" name="rating" value="1" /><label       (click)="vote(rateValue9.value)"  class = "full" for="star1" title="Sucks big time - 1 star"></label>
+              <input [(ngModel)]="rateValue" #rateValue20 type="radio" id="starhalf" name="rating" value="0.5" /><label  (click)="vote(rateValue20.value)"  class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+            </fieldset>
+          </div>
+        </sat-popover>
       </div>
     </div>
   </div>
@@ -21,12 +52,6 @@
     ></circle-progress>
     {{movie.vote_average}}
     {{movie.vote_count}}
-    <!--<div class="test"-->
-      <!--*ngFor="let img of movieBackdrops"-->
-      <!--[ngStyle]="{'background-image': getImageUrl(img)}">-->
-    <!--</div>-->
-    <!--{{moviePosters.toString()}}-->
-    <!--<div *ngIf="director">{{director.name}}</div>-->
   </div>
   <app-accordion [title]="'Cast & Crew'">
     <app-cast-viewer *ngIf="cast" [cast]="cast" [movie]="movie"></app-cast-viewer>

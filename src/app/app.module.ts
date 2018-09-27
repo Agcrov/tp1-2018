@@ -5,7 +5,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import {NgCircleProgressModule} from 'ng-circle-progress';
+import {SatPopoverModule} from "@ncstate/sat-popover";
 
 import { AppComponent } from './app.component';
 import { MovieWildcardComponent } from './movie-wildcard/movie-wildcard.component';
@@ -43,7 +44,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     FontAwesomeModule,
     NgCircleProgressModule.forRoot({
       backgroundColor: '#4e4e4e',
-      radius: 49,
+      radius: 38,
+      unitsFontSize: '12',
       maxPercent: 100,
       unitsColor: '#e0e0e0',
       outerStrokeColor: '#ffef00',
@@ -51,7 +53,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
       outerStrokeWidth: 4,
       innerStrokeWidth: 2,
       titleColor: '#e0e0e0'
-    })
+    }),
+    SatPopoverModule
   ],
   providers: [],
   bootstrap: [AppComponent]
