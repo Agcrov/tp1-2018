@@ -1,10 +1,9 @@
 @import "~src/sass/variables";
+@import "~src/sass/mixins";
 .poster-card{
   height: 350px;
   width: 250px;
-  border-color: whitesmoke;
-  border-style: solid;
-  border-width: 7px;
+  border: 7px solid whitesmoke;
   border-radius: 3px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -47,11 +46,11 @@
   justify-items: flex-start;
   margin: 50px 50px 15px 50px;
   font-family: 'Roboto', sans-serif;
-  color: #eeeeee;
+  color: text-color(secondary);
   h1{
     font-size: 45px;
     font-weight: bold;
-    margin: 25px 0px 10px 0px;
+    margin: 25px 0 10px 0;
   }
 }
 .cast-cards{
@@ -106,10 +105,77 @@
   }
   background-color: whitesmoke;
 }
+.btn-star {
+  background-color: transparent;
+  border: 2px solid text-color(secondary);
+  color: text-color(secondary);
+  border-radius: 50%;
+  height: fit-content;
+  width: fit-content;
+  padding: 5px;
+  &:hover{
+    //color: darken(text-color(secondary),70%);
+    border-color: text-color(primary);
+    background-color: text-color(primary);
+    color: #eaea18;
+    transition: color 300ms, background-color 300ms;
+  }
+}
 
+/****** Style Star Rating Widget *****/
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
+.rating {
+  border: none;
+  float: left;
+}
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
 
-.test{
-  background-repeat: no-repeat;
-  background-size: auto;
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+.rating-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  background-color: white;
+  margin-left: 1em;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  width: fit-content;
+  height: fit-content;
+  .success{
+    margin-right: 10px;
+    color: #63cf4e;
+  }
+  .delete{
+    margin-left: 10px;
+    color: #cf4b2a;
+  }
 }

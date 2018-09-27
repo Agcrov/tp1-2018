@@ -6,7 +6,8 @@ $font-opensans: 'Open Sans', sans-serif;
 $text-colors: (
   primary: #303030,
   lighter: #7a7783,
-  accent: whitesmoke
+  accent: whitesmoke,
+  secondary: white
 );
 
 @function text-color($color-name){
