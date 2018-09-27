@@ -5,6 +5,7 @@ import {Observable, of} from 'rxjs';
 
 import { MessageService } from './message.service';
 import {Movie} from './movie';
+// import {Router} from "@angular/router";
 
 export interface Image {
   aspect_ratio: number;
@@ -15,6 +16,17 @@ export interface Image {
   vote_count: number;
   width: number;
 }
+export interface APIToken{
+  success: boolean;
+  expires_at: string;
+  request_token: string;
+}
+export interface APIGuestSession {
+  success: boolean;
+  expires_at: string;
+  guest_session_id: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,14 +35,62 @@ export class MoviesService {
   private apiUrl = 'https://api.themoviedb.org/3';
   private apiKey = '?api_key=77012f724db16b13bbfe1737d9ae3903';
   private apiLan = '&language=es-AR';
+  private guestSession: APIGuestSession;
+  // private token: APIToken;
+  // private session: string;
+
 
   // https://api.themoviedb.org/3/movie/550?api_key=77012f724db16b13bbfe1737d9ae3903
   // https://api.themoviedb.org/3/movie/550?api_key=77012f724db16b13bbfe1737d9ae3903&language=es-AR
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    // private router: Router
+  ) {
+    if (!this.guestSession) {
+      this.initApiGuestSession();
+    }
+  }
 
+  // getApiToken(): Observable<APIToken>{
+  //   const url = `${this.apiUrl}/authentication/token/new${this.apiKey}`;
+  //   return this.http.get<APIToken>(url).pipe(
+  //     tap(res => this.log(`fetched token=${res['request_token']}`)),
+  //     catchError(this.handleError<APIToken>(`getApiToken error`))
+  //   );
+  // }
+
+  // getAPISession(): void {
+  //   this.getApiToken().subscribe(
+  //     res => {
+  //       this.token= res;
+  //       // Authenticate token
+  //       // https://www.themoviedb.org/authenticate/{REQUEST_TOKEN}
+  //       const currentUrl = this.router.url;
+  //       console.log(this.token.request_token, this.token.success, currentUrl);
+  //       // window.location.href = `${this.apiUrl}/authentication/${this.token.request_token}?redirect_to=http://localhost:4200${currentUrl}`;
+  //       const url = `${this.apiUrl}/authentication/session/new${this.apiKey}`;
+  //       this.http.post<any>(url,this.token.request_token,this.httpOptions).pipe(
+  //         tap(res => this.log(`fetched session=${res['session_id']}`)),
+  //         catchError(this.handleError<APIToken>(`getApiSession`))
+  //       ).subscribe(
+  //         res => {
+  //           if (res['success']){
+  //             console.log('session generated');
+  //             this.session = res['session_id']
+  //           }
+  //         }
+  //       );
+  //     });
+  // }
+  initApiGuestSession(): void {
+    const url = `${this.apiUrl}/authentication/guest_session/new${this.apiKey}`;
+    this.http.get<APIGuestSession>(url).subscribe(
+      res => {
+        this.guestSession = res
+      }
+    )
+  }
   // "http://localhost:4200/?api_key=77012f724db16b13bbfe1737d9ae3903movie/550https://api.themoviedb.org/3/&language=es-AR"
   getMovie(movieId: number): Observable<Movie> {
     // const url = `${this.apiUrl}/movie/${movieId}${this.apiKey}${this.apiLan}`;
@@ -73,8 +133,8 @@ export class MoviesService {
   getMovieRecomendations(movieId: number): Observable<Movie[]> {
     const url = `${this.apiUrl}/movie/${movieId}/recommendations${this.apiKey}&page=1`;
     return this.http.get<Movie[]>(url).pipe(
-      tap(_ => this.log(`fetched similar movie for id=${movieId}`)),
-      catchError(this.handleError<any>(`getMovieSimilar id=${movieId}`))
+      tap(_ => this.log(`fetched recommended movies for id=${movieId}`)),
+      catchError(this.handleError<any>(`getMovieRecomendations id=${movieId}`))
     );
   }
 
@@ -110,9 +170,33 @@ export class MoviesService {
       );
   }
 
+  voteMovie (movieId: string, vote: number): Observable<any> {
+    // let body:any = {};
+    // body.value = vote;
+    const url = `${this.apiUrl}/movie/${movieId}/rating${this.apiKey}&guest_session_id=${this.guestSession.guest_session_id}`;
+    return this.http.post(
+      url,
+      {"value": vote * 2}
+    ).pipe(
+      tap(res => this.log(`rate by ${vote} movie w/ id=${movieId}`)),
+      catchError(this.handleError<any>('voteMovie'))
+    );
+  }
+  unvoteMovie (movieId: string): Observable<any> {
+    const url = `${this.apiUrl}/movie/${movieId}/rating${this.apiKey}&guest_session_id=${this.guestSession.guest_session_id}`;
+    return this.http.delete(url).pipe(
+      tap(res => this.log(`Unrate movie w/ id=${movieId}`)),
+      catchError(this.handleError<any>('unvoteMovie'))
+    );
+  }
 
+  getGuestRatedMovies(): Observable<any>{
+    const url = `${this.apiUrl}/guest_session/${this.guestSession.guest_session_id}/rated/movies${this.apiKey}&sort_by=created_at.desc`;
+    return this.http.get(url).pipe(
+      tap(res => this.log(`Got rated movies for guest w/ id=${this.guestSession.guest_session_id}`))
+    );
 
-
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
