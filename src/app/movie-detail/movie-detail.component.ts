@@ -31,36 +31,21 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
     private moviesService: MoviesService,
     private _activeRoute: ActivatedRoute,
     private _router: Router
-  ) {
-    console.log('on constructor');
-    const id = Number(this._activeRoute.snapshot.params['id']);
-    this.getMovie(id);
-    this.getMovieCredits(id);
-    this.getMovieSimilar(id);
-    this.getMovieImages(id);
-  }
+  ) {}
 
   ngOnInit() {
+    this._activeRoute.params.subscribe(params => {
+      const id = params['id'];
+      this.getMovie(id);
+      this.getMovieCredits(id);
+      this.getMovieSimilar(id);
+      this.getMovieImages(id);
+    });
     console.log('on init');
 
-    // if (this.crew) {
-    //   this.director = this.crew.filter(person => person.job ==='Director').pop();
-    //   console.log(this.director.name);
-    // }
-    // const id = Number(this._activeRoute.snapshot.params['id']);
-    // this.getMovie(id);
-    // this.getMovieCredits(id);
-    // this.getMovieSimilar(id);
-    // this.getMovieImages(id);
   }
   ngAfterContentInit() {
     console.log('after content init');
-    // console.log(this.crew.length);
-    // if (this.crew) {
-    //   this.director = this.crew.filter(person => person.job ==='Director').pop();
-    //   console.log(this.director.name);
-    // }
-    // console.log(this.director.name);
   }
 
   // onBack(): void {
@@ -76,6 +61,8 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
       .subscribe(credits => {
         this.cast = credits['cast'];
         this.crew = credits['crew'];
+        console.log(credits['crew']);
+        this.director = this.crew.filter(person => person.job === 'Director').pop();
       });
   }
   getMovieSimilar(movieId: number): void {
@@ -99,10 +86,9 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
     return 'url(\'https://image.tmdb.org/t/p/original' + img.file_path + '\')';
   }
   getMovieLenght(): string {
-    // console.log(Math.trunc(this.movie.runtime / 60).toString() + 'h ' + (this.movie.runtime % 60).toString() + 'min');
     const hours = Math.trunc(this.movie.runtime / 60);
     const minutes = (this.movie.runtime % 60);
-    return  hours.toString() + 'h ' + minutes.toString() + 'min';
+    return  hours.toString() + ' h ' + minutes.toString() + ' min';
   }
   vote(vote: number):void{
     this.rateValue = vote;

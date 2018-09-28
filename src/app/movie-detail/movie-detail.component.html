@@ -9,10 +9,8 @@
         <p>Rank: <span>{{movie.popularity}}</span></p>
         <p>Length: <span>{{getMovieLenght()}}</span></p>
         <p>{{movie.release_date}}</p>
-        <!--<p>Director: <span>{{director.name}}</span></p>-->
-        <!--<div class="btn-rate">-->
-          <!--<fa-icon class="fa-2x" [icon]="faStar"></fa-icon>-->
-        <!--</div>-->
+
+        <p *ngIf="crew">Director: <span>{{director.name}}</span></p>
 
         <fa-icon
           [satPopoverAnchorFor]="ratePopover"
@@ -59,7 +57,7 @@
     <app-cast-viewer *ngIf="cast" [cast]="cast" [movie]="movie"></app-cast-viewer>
   </app-accordion>
   <!--<ng-container *ngIf="movieSimilar">-->
-    <app-accordion [title]="'Similar'">
+    <app-accordion [title]="'Similar Movies'">
       <div class="wildcards-wrapper">
         <app-movie-wildcard *ngFor="let similar of movieSimilar" [movie]="similar"></app-movie-wildcard>
       </div>

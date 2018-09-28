@@ -14,7 +14,7 @@
   background-size: cover;
   height: 450px;
   width: 100%;
-  top: 0;
+  //top: 0;
   left: 0;
   right: 0;
   //opacity: 0.6;
@@ -96,12 +96,6 @@
   @extend %flex-row-wraper;
   app-movie-wildcard{
     margin: 1em;
-    .movie-title{
-      color: text-color(primary) !important;
-    }
-    .movie-year{
-      color: lighten(text-color(primary),5%) !important;
-    }
   }
   background-color: whitesmoke;
 }
