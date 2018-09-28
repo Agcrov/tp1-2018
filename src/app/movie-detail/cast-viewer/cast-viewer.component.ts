@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {Component, Input, OnInit} from '@angular/core';
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {Cast} from '../../cast';
 import {People} from '../../people';
@@ -36,6 +36,15 @@ export class CastViewerComponent implements OnInit {
     return resp;
   }
   getCastPosterUrl(): string {
-    return 'url(\'https://image.tmdb.org/t/p/w185/' + this.selectedPerson.profile_path + '\')';
+    if (this.selectedPerson.profile_path) {
+      return 'url(\'https://image.tmdb.org/t/p/w185/' + this.selectedPerson.profile_path + '\')';
+    }
+    return 'url(\'/assets/avatar_no_img_128.png\')';
+  }
+  getCastAvatarUrl(person: Cast): string{
+    if(person.profile_path){
+      return 'https://image.tmdb.org/t/p/w185/' + person.profile_path;
+    }
+    return '../../../assets/avatar_no_img_64.png';
   }
 }

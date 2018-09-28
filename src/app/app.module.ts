@@ -18,8 +18,8 @@ import { AccordionComponent } from './movie-detail/accordion/accordion.component
 import { CastViewerComponent } from './movie-detail/cast-viewer/cast-viewer.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tabs/tab/tab.component';
-import {NgCircleProgressModule} from 'ng-circle-progress';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { MqIfDirective } from './mq-if.directive';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     CastViewerComponent,
     TabsComponent,
     TabComponent,
-    NavBarComponent
+    NavBarComponent,
+    MqIfDirective
   ],
   imports: [
     BrowserModule,

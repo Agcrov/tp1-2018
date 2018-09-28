@@ -1,21 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web&subset=latin-ext');
-
+@import "~src/sass/variables";
 
 %accordion-title{
   text-decoration: none;
   font-weight: normal;
-  font-family: 'Titillium Web', sans-serif;
-  color: #2a2a30;
+  font-family: $font-titillium;
+  color: get-color(primary);
   margin: auto 0px auto 2em;
 }
 %content-container{
   width: 100%;
-  background-color: whitesmoke;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
-  padding: 2em 0em 2em 0em;
+  //padding: 2em 0em 2em 0em;
 }
 %button {
   background-image: url('assets/down-arrow.png');
@@ -27,7 +25,7 @@
 
 .accordion-item{
   width: 100%;
-  background-color: white;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
 
@@ -37,7 +35,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: 0.5px solid  #a0a0b6 ;
+    border-bottom: 1px solid get-color(subtle);
 
     .accordion-title{
       @extend %accordion-title;
@@ -49,6 +47,7 @@
   }
   .accordion-content{
     @extend %content-container;
+    background-color: whitesmoke;
   }
 }
 

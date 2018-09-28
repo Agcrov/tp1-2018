@@ -7,13 +7,13 @@
 .movie-title {
   font-family: $font-titillium;
   font-size: 15px;
-  color: text-color(primary);
+  color: get-color(primary);
   margin: 4px 0px 0px 0px;
 }
 .movie-year{
   font-family: $font-titillium;
   font-size: 12px;
-  color: lighten(text-color(primary),10%);
+  color: lighten(get-color(primary),10%);
   margin: 2px 0px 0px 0px;
 }
 

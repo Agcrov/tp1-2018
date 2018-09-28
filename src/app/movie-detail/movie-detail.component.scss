@@ -19,7 +19,7 @@
   right: 0;
   //opacity: 0.6;
   position: absolute;
-  background-color: #2a2a30;
+  background: #2a2a30 no-repeat center;
   filter: blur(3px);
 }
 .header::after{
@@ -37,7 +37,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  background-color: rgba(42,42,48,0.25);
+  background-color: rgba(42,42,48,0.45);
 }
 .movie-data{
   width: 40%;
@@ -46,7 +46,7 @@
   justify-items: flex-start;
   margin: 50px 50px 15px 50px;
   font-family: 'Roboto', sans-serif;
-  color: text-color(secondary);
+  color: get-color(secondary);
   h1{
     font-size: 45px;
     font-weight: bold;
@@ -70,17 +70,33 @@
   border-radius: 50%;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
 }
+.details-wrapper{
+  background-color: white;
+  border: none;
+  width: 100%;
+  @include respond-to(wide-screens){
+    margin: 2em auto;
+    width: 80%;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+  }
+}
 .movie-desc{
-  width: 80%;
-  margin: 2em auto;
-  h2{
-    font-size: 3em;
+  display: flex;
+  flex-direction: column;
+  margin: 0 2em;
+  circle-progress{
     font-family: $font-titillium;
-    color: text-color(primary);
+    align-self: flex-end;
+  }
+  h2{
+    margin: 0 ;
+    font-size: 2.5em;
+    font-family: $font-titillium;
+    color: get-color(primary);
   }
   p{
     font-family: $font-titillium;
-    color: text-color(lighter);
+    color: get-color(lighter);
   }
 }
 %flex-row-wraper{
@@ -101,17 +117,17 @@
 }
 .btn-star {
   background-color: transparent;
-  border: 2px solid text-color(secondary);
-  color: text-color(secondary);
+  border: 2px solid get-color(secondary);
+  color: get-color(secondary);
   border-radius: 50%;
   height: fit-content;
   width: fit-content;
   padding: 5px;
   &:hover{
-    //color: darken(text-color(secondary),70%);
-    border-color: text-color(primary);
-    background-color: text-color(primary);
-    color: #eaea18;
+    //color: darken(get-color(secondary),70%);
+    border-color: get-color(primary);
+    background-color: get-color(primary);
+    color: #FFED85;
     transition: color 300ms, background-color 300ms;
   }
 }

@@ -3,14 +3,15 @@
     <div class="cast-list-panel">
       <ul>
         <li *ngFor="let person of cast" [class.selected]="person.id === selectedPerson.id" (click)="onSelect(person.id)">
+          <img *mqIf="'(max-width: 414px)'" alt="{{person.name}}" class="thumbnail" [src]="getCastAvatarUrl(person)">
           <p class="cast-name">{{person.name}}</p>
-          <p class="cast-character"> {{person.character}}</p>
+          <p class="cast-character"> as {{person.character}}</p>
         </li>
       </ul>
     </div>
-    <ng-container *ngIf="selectedPerson">
-      <div class="cast-detail">
-        <div class="profile-card"  [ngStyle]="{'background-image': getCastPosterUrl()}"></div>
+    <ng-container *ngIf="selectedPerson" >
+      <div class="cast-detail" *mqIf="'(min-width: 414px)'">
+        <div class="profile-card"  [ngStyle]="{'background-image': getCastPosterUrl(selectedPerson)}"></div>
         <div class="profile-info">
           <div class="data-container">
               <p class="profile-title">{{selectedPerson.name}}</p>

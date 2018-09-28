@@ -22,7 +22,6 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
   movieSimilar: Movie[];
   movieBackdrops: Image[];
   moviePosters: Image[];
-  movieLenght: string;
   rateValue: number;
   faStar = faStar;
   faMinusCircle = faMinusCircle;
@@ -61,7 +60,6 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
       .subscribe(credits => {
         this.cast = credits['cast'];
         this.crew = credits['crew'];
-        console.log(credits['crew']);
         this.director = this.crew.filter(person => person.job === 'Director').pop();
       });
   }
@@ -91,14 +89,14 @@ export class MovieDetailComponent implements OnInit, AfterContentInit {
     return  hours.toString() + ' h ' + minutes.toString() + ' min';
   }
   vote(vote: number):void{
-    this.rateValue = vote;
+    this.rateValue = vote * 2;
     this.moviesService.voteMovie(this.movie.id.toString(),this.rateValue).subscribe(
-      res => console.log(res)
+      // res => console.log(res)
     );
   }
   deleteRating(): void{
     this.moviesService.unvoteMovie(this.movie.id.toString()).subscribe(
-      res => console.log(res)
+      // res => console.log(res)
     );
     this.rateValue = 0;
 

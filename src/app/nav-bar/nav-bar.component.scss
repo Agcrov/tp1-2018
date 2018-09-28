@@ -1,14 +1,14 @@
 @import "~src/sass/variables";
 @import "~src/sass/mixins";
 
-$primaryColor: text-color(primary);
+$primaryColor: get-color(primary);
 $secondaryColor: white;
 $tertiaryColor: white;
 
 $flex_nav_hoverColor:darken($secondaryColor,5%);
 $flex_nav_borderColor: darken($secondaryColor,10%);
-$flex_nav_linkColor: text-color(primary);
-$flex_nav_hamburgerColor: text-color(primary);
+$flex_nav_linkColor: get-color(primary);
+$flex_nav_hamburgerColor: get-color(primary);
 
 $flex_nav_subNavWidth: 12.5em;
 $flex_nav_breakpoint: 48em;

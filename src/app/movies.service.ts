@@ -168,7 +168,7 @@ export class MoviesService {
     const url = `${this.apiUrl}/movie/${movieId}/rating${this.apiKey}&guest_session_id=${this.guestSession.guest_session_id}`;
     return this.http.post(
       url,
-      {"value": vote * 2}
+      {"value": vote}
     ).pipe(
       tap(res => this.log(`rate by ${vote} movie w/ id=${movieId}`)),
       catchError(this.handleError<any>('voteMovie'))

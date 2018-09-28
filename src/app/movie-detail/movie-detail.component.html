@@ -1,5 +1,5 @@
 <ng-container *ngIf="movie">
-  <div class="header" [ngStyle]="{'background-image': getBackdropUrl()}">
+  <div class="header" [ngStyle]="{'background-image': getBackdropUrl()}" *mqIf="'(min-width: 768px)'">
   </div>
   <div class="content">
     <div class="poster-card" [ngStyle]="{'background-image': getPosterUrl()}"></div>
@@ -8,10 +8,8 @@
       <div class="movie-details">
         <p>Rank: <span>{{movie.popularity}}</span></p>
         <p>Length: <span>{{getMovieLenght()}}</span></p>
-        <p>{{movie.release_date}}</p>
-
+        <p>Release date: {{movie.release_date | date:'longDate' }}</p>
         <p *ngIf="crew">Director: <span>{{director.name}}</span></p>
-
         <fa-icon
           [satPopoverAnchorFor]="ratePopover"
           class="fa-2x btn-star"
@@ -44,23 +42,26 @@
       </div>
     </div>
   </div>
-  <div class="movie-desc">
-    <h2>Synopsys</h2>
-    <p *ngIf="movie.overview">{{movie.overview}}</p>
-    <circle-progress
-      [percent]="(movie.vote_average * 10)"
-    ></circle-progress>
-    {{movie.vote_average}}
-    {{movie.vote_count}}
+  <div class="details-wrapper">
+    <div class="movie-desc">
+      <h2>Synopsys</h2>
+      <p *ngIf="movie.overview">{{movie.overview}}</p>
+      <circle-progress
+        [percent]="(movie.vote_average * 10)"
+      ></circle-progress>
+    </div>
+    <ng-container *ngIf="cast && crew">
+      <app-accordion [title]="'Cast & Crew'">
+        <app-cast-viewer *ngIf="cast" [cast]="cast" [movie]="movie"></app-cast-viewer>
+      </app-accordion>
+    </ng-container>
+    <ng-container *ngIf="movieSimilar">
+      <app-accordion [title]="'Similar Movies'">
+        <div class="wildcards-wrapper">
+          <app-movie-wildcard *ngFor="let similar of movieSimilar" [movie]="similar"></app-movie-wildcard>
+        </div>
+      </app-accordion>
+    </ng-container>
   </div>
-  <app-accordion [title]="'Cast & Crew'">
-    <app-cast-viewer *ngIf="cast" [cast]="cast" [movie]="movie"></app-cast-viewer>
-  </app-accordion>
-  <!--<ng-container *ngIf="movieSimilar">-->
-    <app-accordion [title]="'Similar Movies'">
-      <div class="wildcards-wrapper">
-        <app-movie-wildcard *ngFor="let similar of movieSimilar" [movie]="similar"></app-movie-wildcard>
-      </div>
-    </app-accordion>
   <!--</ng-container>-->
 </ng-container>
