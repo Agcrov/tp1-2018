@@ -1,0 +1,100 @@
+<div  class="comments-container">
+  <h1>Comments</h1>
+  <div class="comment-intput-wrapper">
+    <!--<input type="text" class="comment-input" [(ngModel)]="userComment.content">-->
+    <textarea
+      title="Comment"
+      class="comment-input"
+      autosize [minRows]="5"
+      [placeholder]="userLogged ? 'Enter your comment here...':'Please log in to make a comment'"
+      [disabled]="!userLogged"
+      [(ngModel)]="userComment.content"></textarea>
+    <button (click)="onCommentSubmit()" class="btn-comment" [disabled]="!userLogged"><fa-icon [icon]="faPaperPlane"></fa-icon>Comment</button>
+  </div>
+  <ul *ngIf="comments" id="comments-list" class="comments-list">
+    <li *ngFor="let comment of comments">
+      <div class="comment-main-level">
+        <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+        <div class="comment-box">
+          <div class="comment-head">
+            <h6 class="comment-name"><a href="#">{{comment.author.username}}</a></h6>
+            <span>{{getTimeFromNow(comment.createdAt)}}</span>
+            <div *ngIf="comment.likes.length > 0" class="likes"><span>{{comment.likes.length}}</span><fa-icon [icon]="fasThumbsUp"></fa-icon></div>
+            <ng-container *ngIf="userLogged">
+              <fa-icon [icon]="faReply" (click)="clearArrays();repliesInputs[comment._id] = !repliesInputs[comment._id]"></fa-icon>
+              <fa-icon *ngIf="comment.likes.indexOf(currentUser._id.toString())==-1"  [icon]="faThumbsUp" (click)="addCommentLike(comment)"></fa-icon>
+              <fa-icon
+                class="dislike"
+                *ngIf="comment.likes.indexOf(currentUser._id.toString())!=-1"
+                [icon]="fasThumbsUp"
+                (click)="removeCommentLike(comment)">
+              </fa-icon>
+            </ng-container>
+          </div>
+          <div class="comment-content">
+            {{comment.content}}
+          </div>
+          <div *ngIf="userLogged && currentUser._id == comment.author._id" class="comment-footer">
+            <fa-icon class="delete" [icon]="faTrashAlt" (click)="onCommentDelete(comment)"></fa-icon>
+            <fa-icon class="edit" [icon]="faEdit" (click)="clearArrays();commentEditInputs[comment._id] = !commentEditInputs[comment._id]" ></fa-icon>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="commentEditInputs[comment._id]" class="comment-edit-wrapper">
+        <fa-icon class="edit" [icon]="faTimes" (click)="commentEditInputs[comment._id] = !commentEditInputs[comment._id]" ></fa-icon>
+        <textarea title="reply"
+                      autosize [minRows]="5"
+                      [disabled]="!userLogged"
+                      [(ngModel)]="comment.content">{{comment.content}}</textarea>
+        <button (click)="commentEditInputs[comment._id] = !commentEditInputs[comment._id];onCommentEdit(comment);clearArrays()"
+                [disabled]="!userLogged" ><fa-icon [icon]="faEdit"></fa-icon>Edit</button>
+      </div>
+      <div *ngIf="repliesInputs[comment._id]" class="reply-input-wrapper">
+        <fa-icon [icon]="faTimes" (click)="repliesInputs[comment._id] = !repliesInputs[comment._id]"></fa-icon>
+        <textarea title="reply"
+                  autosize [minRows]="5"
+                  [placeholder]="userLogged ? 'Enter your reply here...':'Please log in to make a reply'"
+                  [disabled]="!userLogged"
+                  [(ngModel)]="userReply.content"></textarea>
+        <button (click)="repliesInputs[comment._id] = !repliesInputs[comment._id];onReplySubmit(comment);clearArrays()"
+                [disabled]="!userLogged"><fa-icon [icon]="faReply"></fa-icon>Reply</button>
+      </div>
+      <ul *ngIf="comment.replies" class="comments-list reply-list">
+        <li *ngFor="let reply of comment.replies">
+          <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
+          <div class="comment-box">
+            <div class="comment-head">
+              <h6 class="comment-name"><a href="#">{{reply.author.username}}</a></h6>
+              <span>{{getTimeFromNow(reply.createdAt)}}</span>
+              <div *ngIf="reply.likes.length > 0" class="likes"><span>{{reply.likes.length}}</span><fa-icon [icon]="fasThumbsUp"></fa-icon></div>
+              <ng-container *ngIf="userLogged">
+                <fa-icon *ngIf="reply.likes.indexOf(currentUser._id.toString())==-1" [icon]="faThumbsUp" (click)="addReplyLike(reply)"></fa-icon>
+                <fa-icon
+                  class="dislike"
+                  *ngIf="reply.likes.indexOf(currentUser._id.toString())!=-1"
+                  [icon]="fasThumbsUp" (click)="removeReplyLike(reply)"></fa-icon>
+              </ng-container>
+            </div>
+            <div class="comment-content">
+              {{reply.content}}
+            </div>
+            <div *ngIf="userLogged && currentUser._id == reply.author._id" class="comment-footer">
+              <fa-icon class="delete" [icon]="faTrashAlt" (click)="onReplyDelete(reply)"></fa-icon>
+              <fa-icon class="edit" [icon]="faEdit" (click)="clearArrays();repliesEditInputs[reply._id] = !repliesEditInputs[reply._id]"></fa-icon>
+            </div>
+          </div>
+          <div *ngIf="repliesEditInputs[reply._id]" class="reply-edit-wrapper">
+            <fa-icon class="edit" [icon]="faTimes" (click)="repliesEditInputs[reply._id] = !repliesEditInputs[reply._id]"></fa-icon>
+            <textarea title="reply"
+                  autosize [minRows]="5"
+                  [disabled]="!userLogged"
+                  [(ngModel)]="reply.content">{{reply.content}}</textarea>
+            <button (click)="repliesEditInputs[reply._id] = !repliesEditInputs[reply._id];onReplyEdit(reply);clearArrays()"
+                    [disabled]="!userLogged" ><fa-icon [icon]="faEdit"></fa-icon>Edit</button>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+

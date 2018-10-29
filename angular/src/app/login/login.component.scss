@@ -1,0 +1,72 @@
+@import "~src/sass/variables";
+@import "~src/sass/mixins";
+
+.bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  background-color: get-color(accent-violet);
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 0 30%);
+}
+.card{
+  width: fit-content;
+  height: fit-content;
+  margin: 4em auto;
+  padding: 1em 2em;
+  background-color: white;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  h1{
+    font-family: $font-titillium;
+    font-size: 2em;
+    color: get-color(primary);
+    align-self: center;
+    width: 100%;
+    border-bottom:  1px solid  get-color(lighter);
+    margin: 16px;
+    text-align: center;
+  }
+}
+
+.btn-login{
+  @include borderbutton(get-color(accent-violet), $border: 2px);
+  margin: 2em 10px 1em auto;
+  align-self: flex-end;
+  width: fit-content;
+  border-radius: 3px;
+  &:hover{
+    background-color: get-color(accent-violet);
+    border-color: get-color(accent-violet);
+    transition: background-color ease-in-out 400ms ;
+    color: white;
+  }
+}
+
+.container{
+  position: relative;
+  height: 500px;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
+  top: 0;
+  .clipped-backgorund{
+    position: absolute;
+    background-color: get-color(accent-violet);
+    clip-path: polygon(0 0, 100% 0, 100% 76%, 0 30%);
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+  .content{
+    position: relative;
+    z-index: 2;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+  }
+}
