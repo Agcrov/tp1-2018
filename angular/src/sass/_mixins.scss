@@ -17,7 +17,28 @@ $break-large: 1024px;
     @media only screen and (min-width: $break-large) { @content; }
   }
 }
-
+//Animate Transform Transition mixins
+@mixin transition($in) {
+  transition:$in;
+  -webkit-transition:$in;
+  -moz-transition:$in;
+  -o-transition:$in;
+  -ms-transition:$in;
+}
+@mixin transform($in) {
+  transform:$in;
+  -webkit-transform:$in;
+  -moz-transform:$in;
+  -o-transform:$in;
+  -ms-transform:$in;
+}
+@mixin animation($in) {
+  animation:$in;
+  -webkit-animation:$in;
+  -moz-animation:$in;
+  -o-animation:$in;
+  -ms-animation:$in;
+}
 // Font-Mixins
 
 @mixin font-weight($weight) {
@@ -73,11 +94,11 @@ $break-large: 1024px;
   border-left: 1px solid rgba(0,0,0,0.2);
 }
 %gplay_pseudo {
-    content: "";
-    display:block;
-    position:absolute;
-    top:0;
-    right:0;
+  content: "";
+  display:block;
+  position:absolute;
+  top:0;
+  right:0;
 }
 @mixin button($bg: transparent, $color: #fff, $height: 32px, $fontSize:14px) {
   background:$bg;
@@ -109,7 +130,7 @@ $break-large: 1024px;
 }
 
 @mixin gplay($bg: #b3c833, $color: #fff, $height: 32px,$fontSize:16px) {
-	@include button($bg,$color,$height);
+  @include button($bg,$color,$height);
   padding-right: ($height+3px);
   &:before {
     @extend %gplay_pseudo;
@@ -118,7 +139,7 @@ $break-large: 1024px;
     opacity: 0.25;
   }
   &:after {
-   @extend %gplay_pseudo;
+    @extend %gplay_pseudo;
     border-right:$height solid #222;
     border-top:$height solid transparent;
     opacity: 0.3;
@@ -174,35 +195,139 @@ $break-large: 1024px;
 // }
 
 // .apple { @include borderbutton($color:#FF4136, $border: 1px); }
-// .bigblue { @include borderbutton($color:#FF851B, $border: 1px); }
-// .ibm { @include borderbutton($color:#11b1ff, $border: 1px); }
-// .macintosh { @include borderbutton($color:#b3c833, $border: 1px); }
+
 
 // .halt { @include button(#00a1cb);  }
-// .and { @include button(#7db500); }
-// .catch { @include button(#f18d05); }
-// .fire { @include button(#e54028); }
-// .go { @include button(#87318c);}
 
 
-@mixin transition($in) {
-  transition:$in;
-  -webkit-transition:$in;
-  -moz-transition:$in;
-  -o-transition:$in;
-  -ms-transition:$in;
+
+// Input mixin
+// https://codepen.io/MichaelArestad/pen/qltuk
+
+@mixin epic-sides() { // https://codepen.io/MichaelArestad/pen/qltuk
+  font-family: $font-opensans;
+  font-weight: 300;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+
+  &:before {
+    position: absolute;
+    content: "";
+    display: block;
+    top: 0;
+    z-index: -1;
+    @content;
+  }
 }
-@mixin transform($in) {
-  transform:$in;
-  -webkit-transform:$in;
-  -moz-transform:$in;
-  -o-transform:$in;
-  -ms-transform:$in;
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  @extend %hide-invalidcss-input;
+  @include epic-sides() {background: inherit;}
+  span {
+    position: relative;
+    display: inline-block;
+    margin: 2.3em 0 0 0;
+  }
 }
-@mixin animation($in) {
-  animation:$in;
-  -webkit-animation:$in;
-  -moz-animation:$in;
-  -o-animation:$in;
-  -ms-animation:$in;
+
+.alert{
+  align-self: flex-end;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: smaller;
+  background-color: rgba(209, 209, 209, 0.52);
+  color: get-color(lighter);
+  border-radius: 5px;
+}
+%hide-invalidcss-input{
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #6da976; /* green */
+  }
+
+  .ng-valid {
+    border-left: 5px solid #6da976; /* green */
+  }
+  .ng-invalid{
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a96c71; /* red */
+  }
+}
+
+
+
+.balloon {
+  display: inline-block;
+  width: 300px;
+  padding: 10px 0 10px 15px;
+  font-family: $font-opensans;
+  font-weight: 400;
+  color: get-color(subtle);
+  background: get-color(subtle);
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  text-indent: 60px; // Arbitrary.
+  transition: all .3s ease-in-out;
+
+  &::-webkit-input-placeholder {
+    color: get-color(subtle);
+    text-indent: 0;
+    font-weight: 300;
+  }
+
+  + label {
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    bottom: 8px;
+    padding: 5px 15px;
+    color: get-color(primary);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(19,74,70,0);
+    transition: all .3s ease-in-out;
+    border-radius: 3px;
+    background: rgba(122,184,147,0);
+
+    &:after {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      top: 100%;
+      left: 50%;
+      margin-left: -3px;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-top: 3px solid rgba(122,184,147,0);
+      transition: all .3s ease-in-out;
+    }
+  }
+}
+.balloon:focus,
+.balloon:active {
+  color: get-color(primary);
+  text-indent: 0;
+  background: get-color(subtle);
+
+  &::-webkit-input-placeholder {
+    color: get-color(lighter);
+  }
+  + label {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(19,74,70,.4);
+    background: rgb(5, 87, 184);
+    transform: translateY(-40px);
+
+    &:after {
+      border-top: 4px solid rgb(5, 87, 184);
+    }
+  }
 }

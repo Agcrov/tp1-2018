@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="clipped-backgorund"></div>
+  <div class="content">
+    <div class="card">
+      <h1>Log in</h1>
+      <div class="form-wrapper">
+        <span>
+          <input
+            class="balloon" id="email" [(ngModel)]="user.email"
+            #email="ngModel" type="email" placeholder="example@example.com"
+            required email/>
+          <label for="email">Email</label>
+        </span>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+          <div *ngIf="email.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="email.errors.email">
+            Wrong email format.
+          </div>
+        </div>
+        <span>
+          <input
+            class="balloon" id="password" [(ngModel)]="user.password"
+            #password="ngModel" type="password" placeholder=""
+            required minlength="6"/>
+          <label for="password">Password</label>
+        </span>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 6 characters long.
+          </div>
+        </div>
+      </div>
+      <button (click)="onLogin()" class="btn-login">Sign in</button>
+    </div>
+  </div>
+</div>

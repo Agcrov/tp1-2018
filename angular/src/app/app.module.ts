@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {NgCircleProgressModule} from 'ng-circle-progress';
 import {SatPopoverModule} from "@ncstate/sat-popover";
+import { AutosizeModule } from "./autosize/autosize.module";
+import {FlashMessagesModule} from "angular2-flash-messages";
 
 import { AppComponent } from './app.component';
 import { MovieWildcardComponent } from './movie-wildcard/movie-wildcard.component';
@@ -19,8 +21,11 @@ import { CastViewerComponent } from './movie-detail/cast-viewer/cast-viewer.comp
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tabs/tab/tab.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { MqIfDirective } from './mq-if.directive';
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
+import { CommentsComponent } from "./comments/comments.component";
 
+import { MqIfDirective } from './mq-if.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +39,9 @@ import { MqIfDirective } from './mq-if.directive';
     TabsComponent,
     TabComponent,
     NavBarComponent,
+    RegisterComponent,
+    LoginComponent,
+    CommentsComponent,
     MqIfDirective
   ],
   imports: [
@@ -55,7 +63,9 @@ import { MqIfDirective } from './mq-if.directive';
       innerStrokeWidth: 2,
       titleColor: '#e0e0e0'
     }),
-    SatPopoverModule
+    SatPopoverModule,
+    FlashMessagesModule.forRoot(),
+    AutosizeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

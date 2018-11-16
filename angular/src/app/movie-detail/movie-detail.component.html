@@ -50,6 +50,7 @@
         [percent]="(movie.vote_average * 10)"
       ></circle-progress>
     </div>
+    <app-comments></app-comments>
     <ng-container *ngIf="cast && crew">
       <app-accordion [title]="'Cast & Crew'">
         <app-cast-viewer *ngIf="cast" [cast]="cast" [movie]="movie"></app-cast-viewer>

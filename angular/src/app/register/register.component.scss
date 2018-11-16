@@ -1,0 +1,56 @@
+@import "~src/sass/variables";
+@import "~src/sass/mixins";
+
+.text-wrapper{
+  background-color: transparent;
+  position: absolute;
+  color: white;
+  margin: 2em;
+  left: 2em;
+  top: 2em;
+  font-family: $font-titillium;
+  width: 400px;
+  p{
+    width: fit-content;
+    margin: 0;
+    font-size: 18px;
+  }
+  h1{
+    width: fit-content;
+    margin: 0;
+    font-size: 3em;
+  }
+}
+.bg {
+  width: 100%;
+  height: 110%;
+  position: absolute;
+  z-index: -1;
+  background-color: get-color(primary-blue);
+  clip-path: polygon(0 0, 78% 0, 36% 100%, 0% 100%);
+}
+.card{
+  width: fit-content;
+  height: fit-content;
+  margin: 2em 5em 0 auto;
+  padding: 1em 2em;
+  background-color: white;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  position: absolute;
+  right: 1em;
+}
+
+.btn-register{
+   @include borderbutton(get-color(primary-blue), $border: 2px);
+  margin: 1.6em 10px 1em auto;
+  align-self: end;
+  width: fit-content;
+  border-radius: 3px;
+
+  &:hover{
+    background-color: get-color(primary-blue);
+    border-color: get-color(primary-blue);
+    color: white;
+  }
+}
